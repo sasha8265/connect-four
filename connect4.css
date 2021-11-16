@@ -1,6 +1,39 @@
-/* game board table */
+
+#header {
+  text-align: center;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-size: 1.5em;
+}
+
+h1  {
+  margin-bottom: 15px;
+}
+
+#new-game-btn {
+  width: 120px;
+  height: 40px;
+  background-color: #F2B705;
+  color: black;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 2px;    
+  border: 2px solid black;
+  border-radius: 25px;
+  box-shadow: 4px 4px black;
+  cursor: pointer;
+  transition-duration: 250ms;
+}
+
+#game {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+
+}
 
 #board td {
+  align-self: center;
   width: 50px;
   height: 50px;
   border: solid 1px #666;
