@@ -5,17 +5,20 @@
  * board fills (tie)
  */
 
-var WIDTH = 7;
-var HEIGHT = 6;
+const WIDTH = 7;
+const HEIGHT = 6;
 
-var currPlayer = 1; // active player: 1 or 2
-var board = []; // array of rows, each row is array of cells  (board[y][x])
+let currPlayer = 1; // active player: 1 or 2
+const board = []; // array of rows, each row is array of cells  (board[y][x])
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
  */
 
 function makeBoard() {
+  for (let y = 0; y < HEIGHT; y++) {
+    board.push(Array.from({ length: WIDTH }));
+  }
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
 }
 
@@ -23,27 +26,35 @@ function makeBoard() {
 
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
+  const htmlBoard = document.getElementById('board');
 
-  // TODO: add comment for this code
-  var top = document.createElement("tr");
+  // create a new table row with the id of column-top to set css styling and assign to variable 'top'
+  //listen for 'click' on new tr element and execute the function handleClick
+  const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
-  for (var x = 0; x < WIDTH; x++) {
-    var headCell = document.createElement("td");
+  //while the number of cells in the row is less than the width of the table (7) add a new table data element to the row and apply the id - value of x 
+  //add the new data cell to the top row
+  for (let x = 0; x < WIDTH; x++) {
+    const headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
+  //add the top row to the table
   htmlBoard.append(top);
 
-  // TODO: add comment for this code
-  for (var y = 0; y < HEIGHT; y++) {
+  // while the number of rows is less than the HEIGHT and number of cells is less than the width, add a new row and a new cell
+  //append the cells to each row
+  //add an id to each cell that is equal to 'y-x'
+  for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
-    for (var x = 0; x < WIDTH; x++) {
+    for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
       cell.setAttribute("id", `${y}-${x}`);
       row.append(cell);
     }
+    //add the rows to the board
     htmlBoard.append(row);
   }
 }
@@ -71,10 +82,10 @@ function endGame(msg) {
 
 function handleClick(evt) {
   // get x from ID of clicked cell
-  var x = +evt.target.id;
+  let x = +evt.target.id;
 
   // get next spot in column (if none, ignore click)
-  var y = findSpotForCol(x);
+  let y = findSpotForCol(x);
   if (y === null) {
     return;
   }

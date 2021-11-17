@@ -1,79 +1,75 @@
-
 #header {
-  text-align: center;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-  font-size: 1.5em;
+	text-align: center;
+	font-family: Poppins, Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
 }
 
-h1  {
-  margin-bottom: 15px;
+h1 {
+	margin-bottom: 15px;
 }
 
 #new-game-btn {
-  width: 120px;
-  height: 40px;
-  background-color: #F2B705;
-  color: black;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 14px;
-  letter-spacing: 2px;    
-  border: 2px solid black;
-  border-radius: 25px;
-  box-shadow: 4px 4px black;
-  cursor: pointer;
-  transition-duration: 250ms;
+	width: 120px;
+	height: 40px;
+	background-color: #f2b705;
+	color: black;
+	font-family: Poppins, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	letter-spacing: 2px;
+	border: 2px solid black;
+	border-radius: 25px;
+	box-shadow: 4px 4px black;
+	cursor: pointer;
+	transition-duration: 250ms;
 }
 
 #new-game-btn:hover {
-  transform: translateY(-3px);
+	transform: translateY(-3px);
 }
 
 #new-game-btn:active {
-  transform: translateY(4px);
-  box-shadow: 1px 1px black;
-
+	transform: translateY(4px);
+	box-shadow: 1px 1px black;
 }
 
 #game {
-  display: flex;
-  justify-content: center;
-  padding-top: 40px;
-
+	display: flex;
+	justify-content: center;
+	padding-top: 40px;
 }
 
 #board td {
-  align-self: center;
-  width: 50px;
-  height: 50px;
-  border: solid 1px #666;
+	align-self: center;
+	width: 50px;
+	height: 50px;
+	border: solid 1px #666;
 }
 
 div {
-  display: block;
+	display: block;
 }
 
 .piece {
-  /* TODO: make into circles */
-  margin: 5px;
-  width: 80%;
-  height: 80%;
-  border-radius: 50%;
+	/* TODO: make into circles */
+	margin: 5px;
+	width: 80%;
+	height: 80%;
+	border-radius: 50%;
 }
 
 .piece.p1 {
-  background-color: red;
+	background-color: red;
 }
 
 .piece.p2 {
-  background-color: royalblue;
+	background-color: royalblue;
 }
 
-
-#playing-row td {
-  border: dashed 1px lightgray;
+#column-top td {
+	border: dashed 1px lightgray;
 }
 
-#playing-row td:hover {
-  background-color: #F2B70550;
+#column-top td:hover {
+	background-color: #F2B70550;
 }
