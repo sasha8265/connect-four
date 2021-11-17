@@ -34,7 +34,7 @@ function makeHtmlBoard() {
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
-  //while the number of cells in the row is less than the width of the table (7) add a new table data element to the row and apply the id - value of x 
+  //while the number of cells in the row is less than the width of the table (7) add a new table data element to the row and apply the id - index of x 
   //add the new data cell to the top row
   for (let x = 0; x < WIDTH; x++) {
     const headCell = document.createElement("td");
@@ -46,7 +46,7 @@ function makeHtmlBoard() {
 
   // while the number of rows is less than the HEIGHT and number of cells is less than the width, add a new row and a new cell
   //append the cells to each row
-  //add an id to each cell that is equal to 'y-x'
+  //add an id to each cell that is equal to index of 'y-x'
   for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
     for (let x = 0; x < WIDTH; x++) {
@@ -62,20 +62,42 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  // start with y equal to the lowest block, and while y is greater than or equal to 0 reduce by 1 to check if the block is empty.
+  //if the block is empty (no value for y) return the index of y
+  //else return null
+  for (y = HEIGHT - 1; y >= 0; y--) {
+    if (board[y][x] !== null) {
+      console.log(y, x)
+      return y;
+    }
+  }
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  const piece = document.createElement("div");
+  piece.classList.add('piece');
+  piece.classList.add(`p${currPlayer}`);
+
+  //define the target spot using the index of y-x. Append the new piece to that spot
+  const spot = document.getElementById(`${y}-${x}`);
+  spot.append(piece);
+
+  if (currPlayer === 1) {
+    currPlayer = 2;
+  } else {
+    currPlayer = 1;
+  }
 }
 
 /** endGame: announce game end */
 
 function endGame(msg) {
   // TODO: pop up alert message
+  window.alert(`${msg}`);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -96,7 +118,7 @@ function handleClick(evt) {
 
   // check for win
   if (checkForWin()) {
-    return endGame(`Player ${currPlayer} won!`);
+    return endGame(`Congratulations Player ${currPlayer}!`);
   }
 
   // check for tie
