@@ -19,7 +19,6 @@ function makeBoard() {
   for (let y = 0; y < HEIGHT; y++) {
     board.push(Array.from({ length: WIDTH }));
   }
-  // TODO: set "board" to empty HEIGHT x WIDTH matrix array
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -66,8 +65,10 @@ function findSpotForCol(x) {
   //if the block is empty (no value for y) return the index of y
   //else return null
   for (y = HEIGHT - 1; y >= 0; y--) {
-    if (board[y][x] !== null) {
-      console.log(y, x)
+    if (!board[y][x]) {
+      console.log(board[y][x])
+      console.log(y)
+      console.log(`${y}-${x}`)
       return y;
     }
   }
@@ -82,7 +83,7 @@ function placeInTable(y, x) {
   piece.classList.add('piece');
   piece.classList.add(`p${currPlayer}`);
 
-  //define the target spot using the index of y-x. Append the new piece to that spot
+  //define the target spot using the value of y-x. Append the new piece to that spot
   const spot = document.getElementById(`${y}-${x}`);
   spot.append(piece);
 
@@ -107,13 +108,14 @@ function handleClick(evt) {
   let x = +evt.target.id;
 
   // get next spot in column (if none, ignore click)
-  let y = findSpotForCol(x);
+  const y = findSpotForCol(x);
   if (y === null) {
     return;
   }
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
+  board[y][x] = currPlayer;
   placeInTable(y, x);
 
   // check for win
