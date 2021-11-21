@@ -111,7 +111,8 @@ function handleClick(evt) {
 
   // check for win
   if (checkForWin()) {
-    return endGame(`Congratulations Player ${currPlayer}!`);
+    currPlayer = currPlayer === 1 ? 'Red' : 'Blue';
+    return endGame(`Well done ${currPlayer}!`);
   }
 
   // check for tie

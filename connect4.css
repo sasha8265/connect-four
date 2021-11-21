@@ -50,12 +50,37 @@ div {
 	display: block;
 }
 
+@keyframes bounce {
+	0% {
+		transform: translateY(-300px);
+	}
+	20% {
+		transform: translateY(-70px);
+	}
+	40% {
+		transform: translateY(5px);
+	}
+	60% {
+		transform: translateY(-25px);
+	}
+	80% {
+		transform: translateY(2px);
+	}
+	90% {
+		transform: translateY(-15px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
 .piece {
 	/* TODO: make into circles */
 	margin: 5px;
 	width: 80%;
 	height: 80%;
 	border-radius: 50%;
+	animation: bounce 800ms linear;
 }
 
 .piece.p1 {
@@ -71,5 +96,9 @@ div {
 }
 
 #column-top td:hover {
+	background-color: #F2B70550;
+}
+
+.winning-row {
 	background-color: #F2B70550;
 }
