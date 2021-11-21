@@ -66,9 +66,6 @@ function findSpotForCol(x) {
   //else return null
   for (y = HEIGHT - 1; y >= 0; y--) {
     if (!board[y][x]) {
-      console.log(board[y][x])
-      console.log(y)
-      console.log(`${y}-${x}`)
       return y;
     }
   }
@@ -86,12 +83,6 @@ function placeInTable(y, x) {
   //define the target spot using the value of y-x. Append the new piece to that spot
   const spot = document.getElementById(`${y}-${x}`);
   spot.append(piece);
-
-  if (currPlayer === 1) {
-    currPlayer = 2;
-  } else {
-    currPlayer = 1;
-  }
 }
 
 /** endGame: announce game end */
@@ -115,7 +106,7 @@ function handleClick(evt) {
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
-  board[y][x] = currPlayer;
+  board[y][x] = currPlayer; //updates board array with val of currPlayer
   placeInTable(y, x);
 
   // check for win
@@ -126,8 +117,27 @@ function handleClick(evt) {
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
 
+  // if (board.every(row => row.every(cell => cell))) {
+  //   return endGame(`you both could have done better...`);
+  // }
+
+  if (board.flat().every(cell => cell)) {
+    return endGame('you both could have done better...')
+  }
+
+
+
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+
+  // if (currPlayer === 1) {
+  //   currPlayer = 2;
+  // } else {
+  //   currPlayer = 1;
+  // }
+
+  currPlayer = currPlayer === 1 ? 2 : 1;
+
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -150,12 +160,34 @@ function checkForWin() {
 
   // TODO: read and understand this code. Add comments to help you.
 
-  for (var y = 0; y < HEIGHT; y++) {
-    for (var x = 0; x < WIDTH; x++) {
-      var horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-      var vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
-      var diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
-      var diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
+  //seems really tedious, but its creating every possible horizontal, vertical, diagonal up and diagonal down array (of 4) for the entire board,
+  //then uses every one of those arrays as an argument for the _win() function,
+  //which checks every one of those possible arrays to see if all pieces in that array of 4 are the same player color
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
+      const horiz = [
+        [y, x],
+        [y, x + 1],
+        [y, x + 2],
+        [y, x + 3]];
+      
+      const vert = [
+        [y, x],
+        [y + 1, x],
+        [y + 2, x],
+        [y + 3, x]];
+      
+      const diagDR = [
+        [y, x],
+        [y + 1, x + 1],
+        [y + 2, x + 2],
+        [y + 3, x + 3]];
+      
+      const diagDL = [
+        [y, x],
+        [y + 1, x - 1],
+        [y + 2, x - 2],
+        [y + 3, x - 3]];
 
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
@@ -163,6 +195,13 @@ function checkForWin() {
     }
   }
 }
+
+
+window.addEventListener("load", e => {
+  document.getElementById("new-game-btn").onclick = function () {
+    location.reload();
+  }
+});
 
 makeBoard();
 makeHtmlBoard();
